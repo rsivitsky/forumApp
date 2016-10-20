@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout::site-head">
+    <title></title>
+</head>
+<body>
+<div class="container" th:replace="layout::site-header"></div>
+<br/>
+<br/>
+<br/>
+
+<div class="container">
+    <form action="#" th:action="@{/editSection}" th:object="${section}" method="post">
+        <input type="hidden" th:field="*{id}"/>
+        <input type="text" th:field="*{name}"/>
+        <input type="submit" th:value="Edit"/>
+    </form>
+</div>
+
+<div class="container">
+    <div th:if="${not #lists.isEmpty(sections)}">
+        <h3>Section list</h3>
+        <table class="table table-striped">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            <tr th:each="section : ${sections}">
+                <td th:text="${section.id}"><a href="/section/${section.id}">Id</a></td>
+                <td th:text="${section.name}">name</td>
+
+                <td><a th:href="${'/sections/edit/' + section.id}">Edit</a></td>
+                <td><a th:href="${'/sections/delete/' + section.id}">Delete</a></td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Pagination Bar -->
+    <div th:replace="layout::paginationbar">
+    </div>
+
+</div>
+<footer th:replace="layout :: site-footer"/>
+</body>
+</html>

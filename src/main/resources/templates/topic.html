@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout::site-head">
+    <title>welcome to our forum</title>
+</head>
+<body>
+<header th:replace="layout::site-header"></header>
+<div class="container">
+    <br/>
+    <br/>
+    <br/>
+
+    <div class="col-md-2 col-sm-2" id="left">
+        <div th:if="${not #lists.isEmpty(sections)}">
+            <div class="container" th:replace="layout::site-sections"></div>
+        </div>
+    </div>
+
+    <div class="col-md-10 col-sm-10" id="right">
+        <!-- Pagination Bar -->
+        <div th:replace="layout::paginationbar">
+        </div>
+        <br/>
+        <br/>
+        <br/>
+
+        <div>
+            <table class="table table-hover">
+                <tr th:each="message : ${messages}">
+                    <td class="col-md-2 bg-success text-center">
+                        <div th:text="${message.user}"></div>
+                        <span th:text="${'(at '+ #calendars.format(message.created,'dd MMMM yyyy HH:mm') + ')'}">19 October 2016</span>
+                    </td>
+                    <td class="col-md-10">
+                        <h5>
+                            <div th:text="${message.header}" class="text-primary"></div>
+                        </h5>
+                        <div th:text="${message.content}"></div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!-- Pagination Bar -->
+        <div th:replace="layout::paginationbar">
+        </div>
+
+        <h3>enter a new message</h3>
+
+        <form action="#" th:action="@{/message/save}" th:object="${message}" method="post">
+            <table>
+                <tr>
+                    <td><input type="hidden" th:field="*{user}"/></td>
+                </tr>
+                <tr>
+                    <td><input type="hidden" th:field="*{topic}"/></td>
+                </tr>
+                <tr>
+                    <td>Title:</td>
+                    <td><input type="text" th:field="*{header}"/></td>
+                    <td th:if="${#fields.hasErrors('header')}" th:errors="*{header}">Title error message</td>
+                </tr>
+                <tr>
+                    <td>Content:</td>
+                    <td><input type="text" th:field="*{content}"/></td>
+                    <td th:if="${#fields.hasErrors('content')}" th:errors="*{content}">Content error message</td>
+                </tr>
+                <tr>
+                    <td>
+                        <button type="submit">Submit post</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<footer th:replace="layout :: site-footer"/>
+</body>
+</html>

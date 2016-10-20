@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="site-head">
+    <meta charset="UTF-8"/>
+    <!--  <link rel="stylesheet" href="../static/css/styles.css" th:href="@{/css/styles.css}" /> -->
+    <link rel="icon" href="../static/img/favicon.ico" th:href="@{/img/favicon.ico}"/>
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css" th:href="@{/css/styles.css}"/>
+    <script src="../static/js/jquery-3.1.0.min.js" th:src="@{/js/jquery-3.1.0.min.js}"></script>
+    <script src="../static/js/forum-scripts.js" th:src="@{/js/blog-scripts.js}"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+    <meta th:include="this :: head" th:remove="tag"/>
+</head>
+<body>
+<!--
+<header th:fragment="site-header">
+    <a href="index.html" th:href="@{/}"><img src="../static/img/forum_logo.jpg" th:src="@{/img/forum_logo.jpg}" /></a>
+    <a href="index.html" th:href="@{/}">Home</a>
+    <a href="users/login.html" th:href="@{/users/login}">Login</a>
+    <a href="users/register.html" th:href="@{/users/register}">Register</a>
+    <a href="posts/index.html" th:href="@{/posts}">Posts</a>
+    <a href="posts/create.html" th:href="@{/posts/create}">Create Post</a>
+    <a href="users/index.html" th:href="@{/users}">Users</a>
+    <a href="sections/index.html" th:href="@{/sections}">Sections</a>
+    <div id="logged-in-info"> <span>Hello, <b>(user)</b></span>
+        <form method="post" th:action="@{/users/logout}">
+            <input type="submit" value="Logout"/>
+        </form>
+    </div>
+</header>
+-->
+<!--<header th:fragment="site-header"> -->
+<div th:fragment="site-sections">
+    <ul class="nav nav-pills nav-stacked">
+        <p th:each="section : ${sections}">
+        <li><a th:href="${'/sections/' + section.id}">
+            <div th:text="${section.name}"></div>
+        </a></li>
+        </p>
+    </ul>
+</div>
+
+<div th:fragment="site-header" class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Forum</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#" th:href="@{/}">Home</a></li>
+                <li><a href="#" th:href="@{/message}">Messages</a></li>
+                <li><a href="#" th:href="@{/task}">Tasks</a></li>
+                <li><a href="users/index.html" th:href="@{/users}">Users</a></li>
+                <li><a href="sections/index.html" th:href="@{/sections}">Sections</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/signin" th:href="@{/signin}">Sign in</a>
+                </li>
+                <li>
+                    <a href="/logout" th:href="@{/logout}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!--</header> -->
+
+<h1>Welcome</h1>
+
+<p>Welcome to the our forum</p>
+
+<div th:fragment="site-footer" class="navbar-fixed-bottom text-center" style="background-color: #31b0d5">
+    &copy; Our Forum, Belarus 2016
+</div>
+
+<!-- Pagination Bar -->
+<div th:fragment='paginationbar'>
+    <div>
+        <ul class='pagination pagination-centered'>
+            <li th:class="${page.firstPage}?'disabled':''">
+                <span th:if="${page.firstPage}">← First</span>
+                <a th:if="${not page.firstPage}" th:href="@{${page.url}(page=0,size=${page.size})}">← First</a>
+            </li>
+            <li th:class="${page.hasPreviousPage}? '' : 'disabled'">
+                <span th:if='${not page.hasPreviousPage}'>«</span>
+                <a th:if='${page.hasPreviousPage}'
+                   th:href="@{${page.url}(page=${page.number-2},size=${page.size})}"
+                   title='Go to previous page'>«</a>
+            </li>
+            <li th:each='item : ${page.items}' th:class="${item.current}? 'active' : ''">
+                <span th:if='${item.current}' th:text='${item.number}'>1</span>
+                <a th:if='${not item.current}'
+                   th:href="@{${page.url}(page=${item.number-1},size=${page.size})}"><span
+                        th:text='${item.number}'>1</span></a>
+            </li>
+            <li th:class="${page.hasNextPage}? '' : 'disabled'">
+                <span th:if='${not page.hasNextPage}'>»</span>
+                <a th:if='${page.hasNextPage}' th:href="@{${page.url}(page=${page.number},size=${page.size})}"
+                   title='Go to next page'>»</a>
+            </li>
+            <li th:class="${page.lastPage}? 'disabled' : ''">
+                <span th:if='${page.lastPage}'>Last →</span>
+                <a th:if='${not page.lastPage}'
+                   th:href="@{${page.url}(page=${page.totalPages - 1}, size=${page.size})}">Last →</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>

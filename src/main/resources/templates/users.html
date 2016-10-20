@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout::site-head">
+    <title></title>
+</head>
+<body>
+<header th:replace="layout::site-header"></header>
+<div class="container">
+    <div th:if="${not #lists.isEmpty(users)}">
+        <h3>User List</h3>
+        <table class="table table-striped">
+            <tr>
+                <th>Id</th>
+                <th>login</th>
+                <th>Password</th>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Email</th>
+                <th>View</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.id}"><a href="/user/${user.id}">Id</a></td>
+                <td th:text="${user.login}">login</td>
+                <td th:text="${user.password}">password</td>
+                <td th:text="${user.firstName}">firstName</td>
+                <td th:text="${user.lastName}">lastName</td>
+                <td th:text="${user.email}">email</td>
+
+                <td><a th:href="${'/users/' + user.id}">View</a></td>
+                <td><a th:href="${'/users/edit/' + user.id}">Edit</a></td>
+                <td><a th:href="${'/users/delete/' + user.id}">Delete</a></td>
+            </tr>
+        </table>
+    </div>
+
+    <!--<a th:href="@{${'/users'}(page=0,size=${page.size})}">← First</a>
+    <a th:if='${page.hasPreviousPage}' th:href="@{${page.url}(page=${page.number-2},size=${page.size})}" title='Go to previous page'>«</a> -->
+
+    <!-- Pagination Bar -->
+    <div th:replace="layout::paginationbar">
+    </div>
+
+</div>
+<footer th:replace="layout :: site-footer"/>
+</body>
+</html>
