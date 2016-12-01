@@ -53,6 +53,7 @@ public class HomeController {
     public String index(Model model, Pageable pageable) {
         model.addAttribute("sections", sectionRepository.findAll());
         model.addAttribute("message", new Message());
+        model.addAttribute("topics", topicRepository.findAll());
         Page<Message> messagePage = messageService.findByRating(updatePageable(pageable, messagesPerPage));
         PageWrapper<Message> page = new PageWrapper<Message>(messagePage, "/index");
         model.addAttribute("messages", page.getContent());

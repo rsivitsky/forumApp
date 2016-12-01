@@ -18,6 +18,10 @@ public class Message {
     public Message() {
     }
 
+    public Message(User user) {
+        this.user = user;
+    }
+
     public Message(Topic topic, User user) {
         this.topic = topic;
         this.user = user;

@@ -68,8 +68,30 @@
 
         <h3>enter a new message</h3>
 
-        <form action="#" th:action="@{/}" th:object="${message}" method="post">
+        <form action="#" th:action="@{/message/save}" th:object="${message}" method="post">
             <table>
+                <tr>
+                    <td>
+                        <label for="topic">section list: </label>
+                        <br/>
+                        <input type="hidden" th:field="*{id}"/>
+                        <input type="text" th:field="*{topic}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="topic">Messages topic: </label>
+                        <br/>
+                        <select id="topic" th:field="*{topic}">
+                            <option th:each="topic : ${topics}"
+                                    th:value="${topic}"
+                                    th:text="${topic.name}">topic
+                            </option>
+                        </select>
+                        <input type="hidden" th:field="*{id}"/>
+                        <input type="text" th:field="*{topic}"/>
+                    </td>
+                </tr>
                 <tr>
                     <td>Title:</td>
                     <td><input type="text" th:field="*{header}"/></td>
@@ -89,6 +111,6 @@
         </form>
     </div>
 </div>
-<footer th:replace="layout :: site-footer"/>
+<footer th:replace="layout :: site-footer"></footer>
 </body>
 </html>

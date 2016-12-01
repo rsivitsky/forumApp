@@ -17,11 +17,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.util.Date;
 
 @Controller
 @PropertySource("classpath:forum.properties")
+@SessionAttributes("message")
 public class MessageController {
     @Value("${model.messages-per-page}")
     private int messagesPerPage;
@@ -46,12 +48,22 @@ public class MessageController {
     @RequestMapping(value = {"/topic/{id}"}, method = RequestMethod.GET)
     public String index(@PathVariable Long id, Model model, Pageable pageable) {
         model.addAttribute("sections", sectionRepository.findAll());
-        model.addAttribute("message", new Message(topicRepository.findOne(id), userRepository.findOne(2l)));
+        Message mes = new Message(topicRepository.findOne(id), userRepository.findOne(2l));
+        mes.setCreated(new Date());
+        model.addAttribute("message", mes);
         Page<Message> messagePage = messageService.findByTopic(topicRepository.findOne(id), updatePageable(pageable, messagesPerPage));
         PageWrapper<Message> page = new PageWrapper<Message>(messagePage, "/topic/" + id);
         model.addAttribute("messages", page.getContent());
         model.addAttribute("page", page);
         return "topic";
+    }
+
+    @RequestMapping(value = {"/message/add"}, method = RequestMethod.GET)
+    public String AddNewMessage(Model model) {
+        model.addAttribute("topics", topicRepository.findAll());
+        Message message = new Message(userRepository.findOne(2l));
+        model.addAttribute("message", message);
+        return "message";
     }
 
     @RequestMapping(value = {"/message/save"}, method = RequestMethod.POST)
