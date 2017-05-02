@@ -9,7 +9,7 @@ public class User {
     private long id;
     private String login;
     private String password;
-    private Role role;
+    private String role;
     private String firstName;
     private String lastName;
     private String email;
@@ -19,7 +19,7 @@ public class User {
     public User() {
     }
 
-    public User(String login, String password, Role role, String firstName, String lastName, String email) {
+    public User(String login, String password, String role, String firstName, String lastName, String email) {
         this.login = login;
         this.password = password;
         this.role = role;
@@ -28,7 +28,7 @@ public class User {
         this.email = email;
     }
 
-    public User(long id, String login, String password, Role role, String firstName, String lastName, String email, Set<Message> messageSet, Set<Topic> topics) {
+    public User(long id, String login, String password, String role, String firstName, String lastName, String email, Set<Message> messageSet, Set<Topic> topics) {
         this.id = id;
         this.login = login;
         this.password = password;
@@ -66,11 +66,11 @@ public class User {
         this.password = password;
     }
 
-    public Role getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(String role) {
         this.role = role;
     }
 

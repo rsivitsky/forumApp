@@ -50,7 +50,7 @@
             </button>
             <a class="navbar-brand" href="#">Forum</a>
         </div>
-        <div class="navbar-collapse collapse">
+        <div class="navbar-collapse collapse" th:with="currentUser=${#httpServletRequest.userPrincipal}">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#" th:href="@{/}">Home</a></li>
                 <li><a href="#" th:href="@{/message}">Messages</a></li>
@@ -60,10 +60,10 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="/signin" th:href="@{/signin}">Sign in</a>
+                    <a href="/login" th:href="@{/login}">Sign in</a>
                 </li>
-                <li>
-                    <a href="/logout" th:href="@{/logout}">Logout</a>
+                <li th:if="${currentUser != null}">
+                    <a href="/logout?logout" th:href="@{'login?logout'}">Logout</a>
                 </li>
             </ul>
         </div>

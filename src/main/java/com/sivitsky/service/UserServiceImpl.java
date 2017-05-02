@@ -7,6 +7,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
@@ -20,6 +22,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findById(Long id) {
         return this.userRepo.findOne(id);
+    }
+
+    @Override
+    public Optional<User> getUserByEmail(String email) {
+        return userRepo.findOneByEmail(email);
     }
 
     @Override
