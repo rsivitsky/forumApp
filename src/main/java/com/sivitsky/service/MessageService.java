@@ -1,6 +1,7 @@
 package com.sivitsky.service;
 
 import com.sivitsky.domain.Message;
+import com.sivitsky.domain.Section;
 import com.sivitsky.domain.Topic;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,4 +18,6 @@ public interface MessageService {
     Page<Message> findByRating(Pageable page);
 
     Page<Message> findByTopic(Topic topic, Pageable page);
+
+    Page<Message> findBySection(Section section, Pageable page);
 }

@@ -1,6 +1,7 @@
 package com.sivitsky.service;
 
 import com.sivitsky.domain.Message;
+import com.sivitsky.domain.Section;
 import com.sivitsky.domain.Topic;
 import com.sivitsky.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,5 +44,10 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public Page<Message> findByTopic(Topic topic, Pageable page) {
         return this.messageRepository.findByTopic(topic, page);
+    }
+
+    @Override
+    public Page<Message> findBySection(Section section, Pageable page) {
+        return this.messageRepository.findBySection(section, page);
     }
 }

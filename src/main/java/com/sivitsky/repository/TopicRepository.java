@@ -14,8 +14,15 @@ public interface TopicRepository extends JpaRepository<Topic, Long> {
             "FROM Topic t " +
             "WHERE t.name LIKE :name";
 
+   /* public final static String FIND_BY_SECTION_LIKE_QUERY = "SELECT t " +
+            "FROM Topic t " +
+            "WHERE t.section = :section";*/
+
     @Query(FIND_BY_NAME_LIKE_QUERY)
     List<Topic> findByNameLikeNew(@Param("name") String name);
+/*
+    @Query(FIND_BY_SECTION_LIKE_QUERY)
+    List<Topic> findBySection(@Param("section") Section section);*/
 
     List<Topic> findByNameLike(String name);
 
