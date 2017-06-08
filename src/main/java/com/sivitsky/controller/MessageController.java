@@ -1,6 +1,7 @@
 package com.sivitsky.controller;
 
 import com.sivitsky.domain.Message;
+import com.sivitsky.domain.User;
 import com.sivitsky.repository.MessageRepository;
 import com.sivitsky.repository.SectionRepository;
 import com.sivitsky.repository.TopicRepository;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import java.security.Principal;
 import java.util.Date;
 
 @Controller
@@ -59,9 +61,17 @@ public class MessageController {
     }
 
     @RequestMapping(value = {"/message/add"}, method = RequestMethod.GET)
-    public String AddNewMessage(Model model) {
+    public String AddNewMessage(Model model, Principal principal) {
         model.addAttribute("topics", topicRepository.findAll());
-        Message message = new Message(userRepository.findOne(2l));
+        model.addAttribute("sections", sectionRepository.findAll());
+        User user;
+        Message message;
+        if (principal != null) {
+            user = userRepository.findOneByEmail(principal.getName());
+            message = new Message(user);
+        } else {
+            message = new Message(userRepository.findOne(2l));
+        }
         model.addAttribute("message", message);
         return "message";
     }

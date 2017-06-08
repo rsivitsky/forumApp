@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout::site-head">
+    <title>welcome to our forum</title>
+</head>
+<body>
+<header th:replace="layout::site-header"></header>
+<div class="container">
+    <br/>
+    <br/>
+    <br/>
+
+    <div class="col-md-2 col-sm-2" id="left">
+        <div th:if="${not #lists.isEmpty(sections)}">
+            <div class="container" th:replace="layout::site-sections"></div>
+        </div>
+    </div>
+
+    <div class="col-md-10 col-sm-10" id="right">
+        <form action="#" th:action="@{/topic/save}" th:object="${topic}" method="post">
+            <br/>
+            <br/>
+
+            <p>
+
+            <h2 style="background-color: aquamarine">Enter new topic</h2>
+            </p>
+            <div class="form-group">
+                <label th:for="section" th:text="'section'">section:</label>
+                <select th:field="*{section}" id="section">
+                    <option value="NONE" label="--- Select ---"/>
+                    <option th:each="section : ${sections}"
+                            th:value="${section.id}"
+                            th:text="${section.name}">sections
+                    </option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label th:for="name" th:text="'name'">name:</label>
+                <input type="text" class="form-control" th:field="*{name}" id="name"/>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <br/>
+    <br/>
+    <br/>
+</div>
+</body>
+</html>
