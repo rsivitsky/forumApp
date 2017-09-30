@@ -2,9 +2,5 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/.gitignore" charset="windows-1251" />
-    <file url="file://$PROJECT_DIR$/src/main/resources/static/css/bootstrap.min.css" charset="windows-1251" />
-    <file url="file://$PROJECT_DIR$/src/main/resources/static/fonts" charset="windows-1251" />
-    <file url="file://$PROJECT_DIR$/src/main/resources/static/js/bootstrap.min.js" charset="windows-1251" />
   </component>
 </project>
