@@ -14,8 +14,8 @@ public class LoginController {
     public ModelAndView getLoginPage(@RequestParam Optional<String> error) {
         return new ModelAndView("login", "error", error);
     }
-   /* @RequestMapping(value = "/logout", method = RequestMethod.GET)
+   @RequestMapping(value = "/index?logout", method = RequestMethod.GET)
     public ModelAndView getLogoutPage(@RequestParam Optional<String> logout) {
-        return new ModelAndView("login", "logout", logout);
-    }*/
+        return new ModelAndView("index", "logout", logout);
+    }
 }
