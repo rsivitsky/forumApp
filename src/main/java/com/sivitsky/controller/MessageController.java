@@ -82,4 +82,10 @@ public class MessageController {
         messageRepository.save(message);
         return "redirect:/topic/" + message.getTopic().getId();
     }
+
+   /* @RequestMapping(value = {"/message"}, method = RequestMethod.GET)
+    public String listMessage(Model model, Principal principal) {
+        model.addAttribute("messages", messageRepository.findAll());
+        return "redirect:/topic/" + message.getTopic().getId();
+    }*/
 }
