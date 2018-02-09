@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout::site-head">
+    <title>welcome to our forum</title>
+</head>
+<body>
+<div class="container" th:replace="layout::site-header"></div>
+<div class="jumbotron vertical-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8 col-md-6 col-md-offset-3">
+                <form th:action="@{/restore}" method="post">
+                    <div class="form-group">
+                        <label for="email" class="control-label">enter the email you provided during
+                            registration:</label>
+                        <input type="email" class="form-control" name="email" th:placeholder="email" id="email"
+                               data-error="Вы не правильно ввели Ваш E-mail" th:required="required"/>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    <div><input type="submit" th:value="send"/></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<footer th:replace="layout :: site-footer"/>
+</html>

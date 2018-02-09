@@ -12,23 +12,7 @@
     <meta th:include="this :: head" th:remove="tag"/>
 </head>
 <body>
-<!--
-<header th:fragment="site-header">
-    <a href="index.html" th:href="@{/}"><img src="../static/img/forum_logo.jpg" th:src="@{/img/forum_logo.jpg}" /></a>
-    <a href="index.html" th:href="@{/}">Home</a>
-    <a href="users/login.html" th:href="@{/users/login}">Login</a>
-    <a href="users/register.html" th:href="@{/users/register}">Register</a>
-    <a href="posts/index.html" th:href="@{/posts}">Posts</a>
-    <a href="posts/create.html" th:href="@{/posts/create}">Create Post</a>
-    <a href="users/index.html" th:href="@{/users}">Users</a>
-    <a href="sections/index.html" th:href="@{/sections}">Sections</a>
-    <div id="logged-in-info"> <span>Hello, <b>(user)</b></span>
-        <form method="post" th:action="@{/users/logout}">
-            <input type="submit" value="Logout"/>
-        </form>
-    </div>
-</header>
--->
+
 <!--<header th:fragment="site-header"> -->
 <div th:fragment="site-sections">
     <ul class="nav nav-pills nav-stacked">
@@ -65,7 +49,7 @@
                     <input type="password" class="small" name="password" th:placeholder="password"/>
                     <input type="submit" class="small" th:value="login"/>
                     <br/>
-                    <a href="#" th:href="@{/passw_recover}">Forget your passw?</a>
+                    <a href="#" th:href="@{/restore}">Forget your passw?</a>
                 </div>
                 </form>
                 </span>
@@ -119,6 +103,5 @@
         </ul>
     </div>
 </div>
-
 </body>
 </html>
