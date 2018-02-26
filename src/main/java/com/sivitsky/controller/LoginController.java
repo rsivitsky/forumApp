@@ -1,7 +1,9 @@
 package com.sivitsky.controller;
 
-import com.sivitsky.service.SectionService;
+import com.sivitsky.domain.User;
+import com.sivitsky.service.MailService;
 import com.sivitsky.service.UserService;
+import com.sparkpost.exception.SparkPostException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,9 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private MailService mailService;
+
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView getLoginPage(@RequestParam Optional<String> error) {
         return new ModelAndView("login", "error", error);
@@ -29,9 +34,12 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/restore", method = RequestMethod.POST)
-    public String setRestorePage(String email) {
-        if (userService.getUserByEmail(email) != null) {
-            //sparkpost service here
+    public String setRestorePage(String email) throws SparkPostException {
+        User user = userService.getUserByEmail(email);
+        if (user != null) {
+            String message = "Hi, " + user.getEmail() + ",\n your login is: " + user.getEmail() + " \n and your password is: " + user.getPassword();
+            this.mailService.sendMailWithSparkPost("postmaster@sparkpostbox.com", email, "registration info on http://pansivitsky.net",
+                    "Hi, " + user.getEmail() + ",\n your login is: " + user.getEmail() + " \n and your password is: " + user.getPassword(), message);
             System.out.println("user exist. we have send email into this adress");
         } else {
             System.out.print("user with this email does not exist");
