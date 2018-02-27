@@ -37,14 +37,11 @@ public class LoginController {
     public String setRestorePage(String email) throws SparkPostException {
         User user = userService.getUserByEmail(email);
         if (user != null) {
-            String message = "Hi, " + user.getEmail() + ",\n your login is: " + user.getEmail() + " \n and your password is: " + user.getPassword();
-            this.mailService.sendMailWithSparkPost("postmaster@sparkpostbox.com", email, "registration info on http://pansivitsky.net",
-                    "Hi, " + user.getEmail() + ",\n your login is: " + user.getEmail() + " \n and your password is: " + user.getPassword(), message);
-            System.out.println("user exist. we have send email into this adress");
-        } else {
-            System.out.print("user with this email does not exist");
+            String userMail = user.getEmail();
+            String message = "Hi, " + userMail + ",\n your login is: " + userMail + " \n and your password is: " + user.getPassword();
+            this.mailService.sendMailWithSparkPost("lastinegor.tk", email, "registration info on http://lastinegor.tk",
+                    message, message);
         }
-
         return "redirect:/index";
     }
    @RequestMapping(value = "/index?logout", method = RequestMethod.GET)
