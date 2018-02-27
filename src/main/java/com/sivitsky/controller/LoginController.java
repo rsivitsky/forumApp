@@ -18,10 +18,10 @@ import java.util.Optional;
 public class LoginController {
 
     @Autowired
-    private UserService userService;
+    private MailService mailService;
 
     @Autowired
-    private MailService mailService;
+    private UserService userService;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView getLoginPage(@RequestParam Optional<String> error) {

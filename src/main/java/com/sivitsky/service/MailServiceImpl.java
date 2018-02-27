@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class MailServiceImpl implements MailService {
 
-    private MailSender mailSender;
-
     @Value("${sec.api-key}")
     private String API_KEY;
+    
+    private MailSender mailSender;
 
     public void setMailSender(MailSender mailSender) {
         this.mailSender = mailSender;
