@@ -12,7 +12,7 @@ public class MailServiceImpl implements MailService {
 
     @Value("${sec.api-key}")
     private String API_KEY;
-    
+
     private MailSender mailSender;
 
     public void setMailSender(MailSender mailSender) {
