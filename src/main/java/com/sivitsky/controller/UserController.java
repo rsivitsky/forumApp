@@ -1,6 +1,7 @@
 package com.sivitsky.controller;
 
 import com.sivitsky.domain.User;
+import com.sivitsky.service.RoleService;
 import com.sivitsky.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,6 +25,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private RoleService roleService;
+
     public static Pageable updatePageable(final Pageable source, final int size) {
         return new PageRequest(source.getPageNumber(), size, source.getSort());
     }
@@ -31,12 +35,14 @@ public class UserController {
     @RequestMapping("users/new")
     public String newProduct(Model model) {
         model.addAttribute("user", new User());
+        model.addAttribute("listRoles", roleService.getRoles());
         return "userform";
     }
 
     @RequestMapping("users/edit/{id}")
     public String edit(@PathVariable long id, Model model) {
         model.addAttribute("user", userService.findById(id));
+        model.addAttribute("listRoles", roleService.getRoles());
         return "userform";
     }
 

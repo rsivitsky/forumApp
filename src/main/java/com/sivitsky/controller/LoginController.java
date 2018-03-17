@@ -1,7 +1,9 @@
 package com.sivitsky.controller;
 
+import com.sivitsky.domain.ListRole;
 import com.sivitsky.domain.User;
 import com.sivitsky.service.MailService;
+import com.sivitsky.service.RoleService;
 import com.sivitsky.service.UserService;
 import com.sparkpost.exception.SparkPostException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +65,7 @@ public class LoginController {
 
     @RequestMapping(value = "register", method = RequestMethod.POST)
     public String saveRegistration(User user) {
-        user.setRole("ROLE_USER");
+        user.setRole(ListRole.ROLE_USER.toString());
         userService.createUpdate(user);
         return "redirect:/index";
     }
