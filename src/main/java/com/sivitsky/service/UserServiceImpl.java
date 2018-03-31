@@ -1,6 +1,8 @@
 package com.sivitsky.service;
 
+import com.sivitsky.domain.ListRole;
 import com.sivitsky.domain.User;
+import com.sivitsky.domain.UserDto;
 import com.sivitsky.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -29,6 +31,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User createUpdate(User user) {
+        return this.userRepo.save(user);
+    }
+
+    @Override
+    public User registerNewUserAccount(UserDto userDto) {
+        User user = new User(userDto.getLogin(), userDto.getPassword(), ListRole.ROLE_USER.toString(),
+                userDto.getFirstName(), userDto.getLastName(), userDto.getEmail());
         return this.userRepo.save(user);
     }
 

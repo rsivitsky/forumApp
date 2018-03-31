@@ -2,6 +2,7 @@ package com.sivitsky.controller;
 
 import com.sivitsky.domain.ListRole;
 import com.sivitsky.domain.User;
+import com.sivitsky.domain.UserDto;
 import com.sivitsky.service.MailService;
 import com.sivitsky.service.RoleService;
 import com.sivitsky.service.UserService;
@@ -9,11 +10,16 @@ import com.sparkpost.exception.SparkPostException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.Optional;
 
@@ -58,15 +64,43 @@ public class LoginController {
         if (principal != null) {
             return "redirect:/index";
         } else {
-            model.addAttribute("user", new User());
+            model.addAttribute("user", new UserDto());
             return "registration";
         }
     }
 
+    /*
     @RequestMapping(value = "register", method = RequestMethod.POST)
     public String saveRegistration(User user) {
         user.setRole(ListRole.ROLE_USER.toString());
         userService.createUpdate(user);
         return "redirect:/index";
+    }*/
+
+    @RequestMapping(value = "register", method = RequestMethod.POST)
+    public ModelAndView registerUserAccount
+            (@ModelAttribute("user") @Valid UserDto accountDto,
+             BindingResult result, WebRequest request, Errors errors) {
+        User registered = new User();
+        if (!result.hasErrors()) {
+            registered = createUserAccount(accountDto, result);
+        }
+        if (registered == null) {
+            result.rejectValue("email", "message.regError");
+        }
+        if (result.hasErrors()) {
+            return new ModelAndView("registration", "user", accountDto);
+        } else {
+            return new ModelAndView("successRegister", "user", accountDto);
+        }
+    }
+
+    private User createUserAccount(UserDto accountDto, BindingResult result) {
+        User registered = null;
+        if (userService.getUserByEmail(accountDto.getEmail()) == null) {
+            registered = userService.registerNewUserAccount(accountDto);
+            return registered;
+        }
+        return registered;
     }
 }
