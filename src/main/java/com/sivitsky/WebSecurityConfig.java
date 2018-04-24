@@ -28,6 +28,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/users").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/setions").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/topics").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/message").access("hasRole('ROLE_ADMIN')")
                 .antMatchers("/topic/*").access("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
                 .anyRequest().permitAll()
                 .and()

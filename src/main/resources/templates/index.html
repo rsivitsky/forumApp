@@ -5,23 +5,19 @@
 </head>
 <body>
 <footer>
-<header th:replace="layout::site-header"></header>
+    <header th:replace="layout::site-header"></header>
 </footer>
 <div class="container">
-    <br/><br/><br/><br/><br/><br/>
-
     <div class="col-md-2 col-sm-2" id="left">
         <div th:if="${not #lists.isEmpty(sections)}">
             <div class="container" th:replace="layout::site-sections"></div>
         </div>
     </div>
 
-
     <div class="col-md-10 col-sm-10" id="right">
         <br/>
         <br/>
         <br/>
-
         <div>
             <table class="table table-hover">
                 <tr class="bg-primary">
@@ -51,7 +47,7 @@
                             </a>
                             <footer>
                                 <span th:text="${message.user}"></span>
-                            <span>
+                                <span>
                                 wrote at
                             </span>
                                 <span th:text="${#calendars.format(message.created,'dd MMMM yyyy HH:mm')}">

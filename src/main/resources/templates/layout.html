@@ -15,6 +15,9 @@
 
 <!--<header th:fragment="site-header"> -->
 <div th:fragment="site-sections">
+    <br/>
+    <br/>
+    <br/>
     <ul class="nav nav-pills nav-stacked">
         <p th:each="section : ${sections}">
         <li><a th:href="${'/sections/' + section.id}">
@@ -37,8 +40,8 @@
         <div class="navbar-collapse collapse" th:with="currentUser=${#httpServletRequest.userPrincipal}">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#" th:href="@{/}">Home</a></li>
-                <li><a href="#" th:href="@{/message}">Messages</a></li>
-                <li><a href="#" th:href="@{/task}">Tasks</a></li>
+                <li><a href="#" th:href="@{/allmessages}">Messages</a></li>
+                <li><a href="#" th:href="@{/topics}">Tasks</a></li>
                 <li><a href="users/index.html" th:href="@{/users}">Users</a></li>
                 <li><a href="sections/index.html" th:href="@{/sections}">Sections</a></li>
             </ul>
@@ -54,14 +57,14 @@
                 </div>
                 </form>
                 </span>
-                <span th:if="${currentUser != null}">
+            <span th:if="${currentUser != null}">
                     <form th:action="@{/logout}" method="post" class="navbar-form navbar-right">
                         <input type="submit" class="btn btn-link" th:value="logout"/></form>
                 </span>
-         </div>
-     </div>
+        </div>
     </div>
-    <!--</header> -->
+</div>
+<!--</header> -->
 
 <h1>Welcome</h1>
 

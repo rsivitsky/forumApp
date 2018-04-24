@@ -9,52 +9,44 @@
     <br/>
     <br/>
     <br/>
+    <form action="#" th:action="@{/message/save}" th:object="${message}" method="post">
+        <br/>
+        <br/>
 
-    <div class="col-md-2 col-sm-2" id="left">
-        <div th:if="${not #lists.isEmpty(sections)}">
-            <div class="container" th:replace="layout::site-sections"></div>
+        <p>
+
+        <h2 style="background-color: aquamarine">Enter new message</h2>
+        </p>
+        <div class="form-group">
+            <label th:for="topic" th:text="'topic'">topic:</label>
+            <select th:field="*{topic}" id="topic">
+                <option value="NONE" label="--- Select ---"/>
+                <option th:each="topic : ${topics}"
+                        th:value="${topic.id}"
+                        th:text="${topic.name}">topics
+                </option>
+            </select>
+
+            <div>
+                <a href="topic.html" th:href="@{/topic/add}">add new topic</a>
+            </div>
         </div>
-    </div>
-
-    <div class="col-md-10 col-sm-10" id="right">
-        <form action="#" th:action="@{/message/save}" th:object="${message}" method="post">
-            <br/>
-            <br/>
-
-            <p>
-
-            <h2 style="background-color: aquamarine">Enter new message</h2>
-            </p>
-            <div class="form-group">
-                <label th:for="topic" th:text="'topic'">topic:</label>
-                <select th:field="*{topic}" id="topic">
-                    <option value="NONE" label="--- Select ---"/>
-                    <option th:each="topic : ${topics}"
-                            th:value="${topic.id}"
-                            th:text="${topic.name}">topics
-                    </option>
-                </select>
-
-                <div>
-                    <a href="topic.html" th:href="@{/topic/add}">add new topic</a>
-                </div>
-            </div>
-            <div class="form-group">
-                <label th:for="header" th:text="'header'">header:</label>
-                <input type="text" class="form-control" th:field="*{header}" id="header"/>
-            </div>
-            <div class="form-group">
-                <label th:for="message" th:text="'message text'">message text:</label>
-        <textarea class="form-control" type="textarea" id="message" th:field="*{content}"
-                  maxlength="140" rows="3"
-                  name="additional_services"></textarea>
-            </div>
-            <button type="submit">Submit post</button>
-        </form>
-    </div>
-    <br/>
-    <br/>
-    <br/>
+        <div class="form-group">
+            <label th:for="header" th:text="'header'">header:</label>
+            <input type="text" class="form-control" th:field="*{header}" id="header"/>
+        </div>
+        <div class="form-group">
+            <label th:for="message" th:text="'message text'">message text:</label>
+            <textarea class="form-control" type="textarea" id="message" th:field="*{content}"
+                      maxlength="140" rows="3"
+                      name="additional_services"></textarea>
+        </div>
+        <button type="submit">Submit post</button>
+    </form>
+</div>
+<br/>
+<br/>
+<br/>
 </div>
 <footer th:replace="layout :: site-footer"></footer>
 </body>

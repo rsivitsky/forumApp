@@ -83,9 +83,26 @@ public class MessageController {
         return "redirect:/topic/" + message.getTopic().getId();
     }
 
-   /* @RequestMapping(value = {"/message"}, method = RequestMethod.GET)
-    public String listMessage(Model model, Principal principal) {
-        model.addAttribute("messages", messageRepository.findAll());
-        return "redirect:/topic/" + message.getTopic().getId();
-    }*/
+    @RequestMapping("message/delete/{id}")
+    public String delete(@PathVariable Long id) {
+        messageService.deleteById(id);
+        return "redirect:/message";
+    }
+
+    @RequestMapping(value = {"/allmessages"}, method = RequestMethod.GET)
+    public String listMessage(Model model, Pageable pageable, Principal principal) {
+        model.addAttribute("sections", sectionRepository.findAll());
+        model.addAttribute("topics", topicRepository.findAll());
+        Page<Message> messagePage = messageService.findByRating(updatePageable(pageable, messagesPerPage));
+        PageWrapper<Message> page = new PageWrapper<Message>(messagePage, "/index");
+        model.addAttribute("messages", page.getContent());
+        model.addAttribute("page", page);
+        if (principal != null) {
+            User user = userRepository.findOneByEmail(principal.getName());
+            Message message = new Message(user);
+            model.addAttribute("message", message);
+            return "listmessages";
+        }
+        return "redirect:/index/";
+    }
 }

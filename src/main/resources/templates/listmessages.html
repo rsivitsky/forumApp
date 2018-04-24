@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout::site-head">
+    <title>welcome to our forum</title>
+</head>
+<body>
+<footer>
+    <header th:replace="layout::site-header"></header>
+</footer>
+<div class="container">
+    <div class="col-md-2 col-sm-2" id="left">
+        <div th:if="${not #lists.isEmpty(sections)}">
+            <div class="container" th:replace="layout::site-sections"></div>
+        </div>
+    </div>
+
+    <div class="col-md-10 col-sm-10" id="right">
+        <br/>
+        <br/>
+        <br/>
+        <div th:if="${not #lists.isEmpty(messages)}">
+            <table class="table table-striped">
+                <tr>
+                    <th>Id</th>
+                    <th>Header</th>
+                    <th>Topic</th>
+                    <th>Author</th>
+                    <th>Created</th>
+                    <th>Delete</th>
+                </tr>
+                <tr th:each="mess : ${messages}">
+                    <td th:text="${mess.id}">id</td>
+                    <td th:text="${mess.header}">header</td>
+                    <td th:text="${mess.topic.name}">topic</td>
+                    <td th:text="${mess.user}">user</td>
+                    <td th:text="${mess.created}">created</td>
+                    <td><a th:href="${'/message/delete/' + mess.id}">Delete</a></td>
+                </tr>
+            </table>
+        </div>
+        <!-- Pagination Bar -->
+        <div th:if="${not #lists.isEmpty(messages)}">
+            <div th:replace="layout::paginationbar">
+            </div>
+        </div>
+    </div>
+</div>
+
+<br/>
+<br/>
+<br/>
+<footer th:replace="layout :: site-footer"></footer>
+</body>
+</html>

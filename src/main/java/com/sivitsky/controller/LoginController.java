@@ -69,14 +69,6 @@ public class LoginController {
         }
     }
 
-    /*
-    @RequestMapping(value = "register", method = RequestMethod.POST)
-    public String saveRegistration(User user) {
-        user.setRole(ListRole.ROLE_USER.toString());
-        userService.createUpdate(user);
-        return "redirect:/index";
-    }*/
-
     @RequestMapping(value = "register", method = RequestMethod.POST)
     public ModelAndView registerUserAccount
             (@ModelAttribute("user") @Valid UserDto accountDto,
